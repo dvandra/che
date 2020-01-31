@@ -59,6 +59,9 @@ global:
 
   gitHubClientID: ""
   gitHubClientSecret: ""
+  openShiftClientID: ""
+  openShiftClientSecret: ""
+  openShiftEndpoint: ""
   # Possible values: common, per-workspace, unique
   cheWorkspacesPVCStrategy: "common"
   pvcClaim: "1Gi"
