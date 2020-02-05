@@ -94,8 +94,7 @@ public class RollingUpdateStrategyWithStartedWorkspaceTest {
     hotUpdateUtil.executeMasterPodUpdateCommand();
 
     // check that Che is updated
-    hotUpdateUtil.waitMasterPodRevision(currentRevision + 1);
-    hotUpdateUtil.waitFullMasterPodUpdate(currentRevision);
+    hotUpdateUtil.waitMasterPodRevision(1);
 
     assertEquals(cheTestSystemClient.getStatus(), SystemStatus.RUNNING);
     workspaces.waitWorkspaceIsPresent(WORKSPACE_NAME);

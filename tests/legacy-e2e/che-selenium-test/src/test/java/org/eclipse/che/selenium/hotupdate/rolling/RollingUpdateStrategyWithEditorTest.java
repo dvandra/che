@@ -80,8 +80,7 @@ public class RollingUpdateStrategyWithEditorTest {
     checkIdeAvailability();
 
     // check that che is updated
-    hotUpdateUtil.waitMasterPodRevision(currentRevision + 1);
-    hotUpdateUtil.waitFullMasterPodUpdate(currentRevision);
+    hotUpdateUtil.waitMasterPodRevision(1);
 
     // check that workspace is successfully migrated to the new master
     assertTrue(testWorkspaceServiceClient.exists(WORKSPACE_NAME, defaultTestUser.getName()));

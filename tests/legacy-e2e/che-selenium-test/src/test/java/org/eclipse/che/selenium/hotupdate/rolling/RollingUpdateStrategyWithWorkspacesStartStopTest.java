@@ -100,7 +100,6 @@ public class RollingUpdateStrategyWithWorkspacesStartStopTest {
     workspaces.waitWorkspaceStatus(STARTED_WORKSPACE_NAME, Workspaces.Status.RUNNING);
 
     // check that che is updated
-    hotUpdateUtil.waitMasterPodRevision(currentRevision + 1);
-    hotUpdateUtil.waitFullMasterPodUpdate(currentRevision);
+    hotUpdateUtil.waitMasterPodRevision(1);
   }
 }

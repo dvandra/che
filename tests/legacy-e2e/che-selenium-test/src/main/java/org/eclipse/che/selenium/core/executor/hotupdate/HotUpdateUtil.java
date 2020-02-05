@@ -16,6 +16,7 @@ import com.google.inject.Singleton;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -36,10 +37,11 @@ public class HotUpdateUtil {
   private static final int DELAY_BETWEEN_ATTEMPTS_IN_MILLISECS = 5000;
   private static final String PODS_LIST_COMMAND = "get pods | awk 'NR > 1 {print $1}'";
   private static final String COMMAND_TO_GET_REVISION_OF_CHE_DEPLOYMENT =
-      "get dc che | awk 'NR==2{print $2}'";
+      "get deployment/che | awk 'NR==2{print $3}'";
   private static final String COMMAND_TO_GET_NAME_OF_CHE_DEPLOYMENT =
-      "get dc che | awk 'NR==2{print $1}'";
-  private static final String UPDATE_COMMAND_TEMPLATE = "rollout latest %s";
+      "get deployment/che | awk 'NR==2{print $1}'";
+  private static final String UPDATE_COMMAND_TEMPLATE =
+      "patch deployment che -p \"{\\\"spec\\\": {\\\"template\\\": {\\\"spec\\\":{\\\"terminationGracePeriodSeconds\\\":%s}}}}\"";
 
   protected final OpenShiftCliCommandExecutor openShiftCliCommandExecutor;
   protected final TestUserPreferencesServiceClient testUserPreferencesServiceClient;
@@ -109,7 +111,9 @@ public class HotUpdateUtil {
    * @throws Exception
    */
   public void executeMasterPodUpdateCommand() throws Exception {
-    String updateCommand = String.format(UPDATE_COMMAND_TEMPLATE, getMasterPodName());
+    Random random = new Random();
+    String updateCommand = String.format(UPDATE_COMMAND_TEMPLATE, random.nextInt(10));
+    System.out.println(updateCommand);
     openShiftCliCommandExecutor.execute(updateCommand);
   }
 

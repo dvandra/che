@@ -49,7 +49,7 @@ installCheCtl
 deployCheIntoCluster  --chenamespace=eclipse-che --che-operator-cr-yaml=/tmp/custom-resource.yaml
 seleniumTestsSetup
 
-bash /root/payload/tests/legacy-e2e/che-selenium-test/selenium-tests.sh --threads=4 --host=${CHE_ROUTE} --port=80 --multiuser
+bash /root/payload/tests/legacy-e2e/che-selenium-test/selenium-tests.sh --threads=1 --host=${CHE_ROUTE} --port=80 --multiuser --test=org.eclipse.che.selenium.hotupdate.rolling.**
 
 saveSeleniumTestResult
 getOpenshiftLogs
